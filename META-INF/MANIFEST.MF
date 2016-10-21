@@ -12,7 +12,8 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version=3.6.0,com.mia.
  mmon;bundle-version=2.6.0,org.eclipse.emf.ecore;bundle-version=2.6.0,
  org.eclipse.emf.ecore.xmi;bundle-version=2.5.0,org.eclipse.jdt.core;b
  undle-version=3.6.0,org.eclipse.uml2.uml,org.eclipse.uml2.types,com.m
- ia.studio.empty.metamodel;bundle-version=9.0.0
+ ia.studio.empty.metamodel;bundle-version=9.0.0,com.mia.formation.mvc.
+ metamodel,com.mia.studio.empty.metamodel;bundle-version=9.0.0
 Bundle-ManifestVersion: 2
 Bundle-Activator: missinginaction.Activator
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
