@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE PACKAGE SYSTEM "package.dtd">
+<PACKAGE NAME="com.alma.generation.modelproperty" METAMODEL="MVC" NUMBER="5"
+>
+	<fileHeader version="6" toolName="Mia-Generation" toolVersion="9.2.1"/>
+	<SCRIPT NAME="makeAttribute" META_OBJECT="ModelProperty" CATEGORY="default">
+		<TEXT><![CDATA[
+	private String [[current.name]];
+
+]]></TEXT>
+	</SCRIPT>
+	<SCRIPT NAME="makeGetterSetter" META_OBJECT="ModelProperty" CATEGORY="default">
+		<TEXT><![CDATA[
+
+	public String [[current.makePropertyGetter]]();
+	
+	public void [[current.makePropertySetter]](String newValue);
+
+]]></TEXT>
+	</SCRIPT>
+	<SCRIPT NAME="makeGetterSetterImpl" META_OBJECT="ModelProperty" CATEGORY="default">
+		<TEXT><![CDATA[
+	public String [[current.makePropertyGetter]]() {
+		return this.[[current.name]];
+	}
+		
+	public void [[current.makePropertySetter]](String newValue) {
+		this.[[current.name]] = newValue;
+	}
+]]></TEXT>
+	</SCRIPT>
+	<TEXT_MACRO NAME="makePropertyGetter" META_OBJECT="ModelProperty" CATEGORY="default" RETURN_TYPE_KIND="primitive" RETURN_TYPE_NAME="String">
+		<TEXT><![CDATA[
+return "get" + current.getName();
+]]></TEXT>
+	</TEXT_MACRO>
+	<TEXT_MACRO NAME="makePropertySetter" META_OBJECT="ModelProperty" CATEGORY="default" RETURN_TYPE_KIND="primitive" RETURN_TYPE_NAME="String">
+		<TEXT><![CDATA[
+return "set" + current.getName();
+]]></TEXT>
+	</TEXT_MACRO>
+	<METAMODELS_INFO_CACHE>
+		<METAMODEL_IMPORT CLAUSE="com.mia.formation.mvc.*" RELATED_METAS="Action,Model,ModelProperty,UIApplication,View,NamedElement"/>
+		<METAMODEL_CONTAINER_QNAME CQNAME="mvc" RELATED_METAS="Action,Model,ModelProperty,UIApplication,View,NamedElement"/>
+	</METAMODELS_INFO_CACHE>
+</PACKAGE>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE PACKAGE SYSTEM "package.dtd">
+<PACKAGE NAME="com.alma.generation.models" METAMODEL="MVC" NUMBER="12"
+>
+	<fileHeader version="6" toolName="Mia-Generation" toolVersion="9.2.1"/>
+	<SCENARIO NAME="MakeModelsCode" VISIBILITY="public" META_OBJECT="Model" CATEGORY="default">
+		<SERVICE_CALL NAME="current" PACKAGE="System" META_OBJECT="Model"/>
+		<GENERATION_STEP TYPE="FileTemplate" PACKAGE="com.alma.generation.models" META_OBJECT="Model" CATEGORY="default" NAME="IModel" PARAM_COUNT="0"/>
+		<GENERATION_STEP TYPE="FileTemplate" PACKAGE="com.alma.generation.models" META_OBJECT="Model" CATEGORY="default" NAME="ImplModel" PARAM_COUNT="0"/>
+	</SCENARIO>
+	<SCRIPT NAME="IModel" META_OBJECT="Model" CATEGORY="default" FILE_ENCODING="UTF-8" VISIBILITY="private">
+		<TEXT><![CDATA[
+package com.alma.generation.models.interface;
+
+import java.util.List;
+
+public interface [[current.makeInterfaceName]] {
+[[current.properties.makeGetterSetter]]
+[[current.ownedElements.ownedElementsGetSet]]
+}
+]]></TEXT>
+		<PROPERTY NAME="Filename"/>
+	</SCRIPT>
+	<SCRIPT NAME="IModel$Filename" META_OBJECT="Model" CATEGORY="default">
+		<TEXT><![CDATA[
+com/alma/generation/models/interface/[[current.makeInterfaceName]].java
+]]></TEXT>
+	</SCRIPT>
+	<SCRIPT NAME="ImplModel" META_OBJECT="Model" CATEGORY="default" FILE_ENCODING="UTF-8" VISIBILITY="private">
+		<TEXT><![CDATA[
+package com.alma.generation.models.impl;
+
+import java.util.List;
+import java.util.ArrayList;
+import com.alma.generation.models.interface.[[current.makeInterfaceName]];
+[[current.ownedElements.ownedElementsImport]]
+
+public class [[current.name]] implements [[current.makeInterfaceName]] {
+[[current.properties.makeAttribute]]
+[[current.ownedElements.ownedElementsAttribute]]
+
+[[current.properties.makeGetterSetterImpl]]
+[[current.ownedElements.ownedElementsGetSetImpl]]	
+}
+]]></TEXT>
+		<PROPERTY NAME="Filename"/>
+	</SCRIPT>
+	<SCRIPT NAME="ImplModel$Filename" META_OBJECT="Model" CATEGORY="default">
+		<TEXT><![CDATA[
+com/alma/generation/models/impl/[[current.name]].java
+]]></TEXT>
+	</SCRIPT>
+	<TEXT_MACRO NAME="makeInterfaceName" META_OBJECT="Model" CATEGORY="default" RETURN_TYPE_KIND="primitive" RETURN_TYPE_NAME="String">
+		<TEXT><![CDATA[
+return "I" + current.getName();
+]]></TEXT>
+	</TEXT_MACRO>
+	<TEXT_MACRO NAME="makeListName" META_OBJECT="Model" CATEGORY="default" RETURN_TYPE_KIND="primitive" RETURN_TYPE_NAME="String">
+		<TEXT><![CDATA[
+return "list" + current.getName();
+]]></TEXT>
+	</TEXT_MACRO>
+	<TEXT_MACRO NAME="makeOwnedEltGetter" META_OBJECT="Model" CATEGORY="default" RETURN_TYPE_KIND="primitive" RETURN_TYPE_NAME="String">
+		<TEXT><![CDATA[
+return "get" + current.getName() + "s";
+]]></TEXT>
+	</TEXT_MACRO>
+	<TEXT_MACRO NAME="makeOwnedEltSetter" META_OBJECT="Model" CATEGORY="default" RETURN_TYPE_KIND="primitive" RETURN_TYPE_NAME="String">
+		<TEXT><![CDATA[
+return "set" + current.getName() + "s";
+]]></TEXT>
+	</TEXT_MACRO>
+	<SCRIPT NAME="ownedElementsAttribute" META_OBJECT="Model" CATEGORY="default">
+		<TEXT><![CDATA[
+	private List<[[current.makeInterfaceName@¤] [[current.makeListName]];
+]]></TEXT>
+	</SCRIPT>
+	<SCRIPT NAME="ownedElementsGetSet" META_OBJECT="Model" CATEGORY="default">
+		<TEXT><![CDATA[
+	public List<[[current.makeInterfaceName@¤] [[current.makeOwnedEltGetter]] ;
+	
+	public void [[current.makeOwnedEltSetter]]<[[current.makeInterfaceName@¤] newValue);
+]]></TEXT>
+	</SCRIPT>
+	<SCRIPT NAME="ownedElementsGetSetImpl" META_OBJECT="Model" CATEGORY="default">
+		<TEXT><![CDATA[
+	public List<[[current.makeInterfaceName@¤] [[current.makeOwnedEltGetter]]() {
+		if (this.[[current.makeListName]] == null) {
+			this.[[current.makeListName]] = new ArrayList<[[current.makeInterfaceName@¤]();
+		}
+		return this.[[current.makeListName]];
+	}
+	
+	public void [[current.makeOwnedEltSetter]](<[[current.makeInterfaceName@¤] newValue) {
+		this.[[current.makeListName]] = newValue;
+	}
+
+]]></TEXT>
+	</SCRIPT>
+	<SCRIPT NAME="ownedElementsImport" META_OBJECT="Model" CATEGORY="default">
+		<TEXT><![CDATA[
+import com.alma.generation.models.interface.[[current.makeInterfaceName]];
+
+]]></TEXT>
+	</SCRIPT>
+	<METAMODELS_INFO_CACHE>
+		<METAMODEL_IMPORT CLAUSE="com.mia.formation.mvc.*" RELATED_METAS="Action,Model,ModelProperty,UIApplication,View,NamedElement"/>
+		<METAMODEL_CONTAINER_QNAME CQNAME="mvc" RELATED_METAS="Action,Model,ModelProperty,UIApplication,View,NamedElement"/>
+	</METAMODELS_INFO_CACHE>
+</PACKAGE>
