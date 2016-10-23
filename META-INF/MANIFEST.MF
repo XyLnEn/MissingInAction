@@ -18,7 +18,8 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.6.0",com.mi
  .0",com.mia.formation.mvc.metamodel,com.mia.studio.empty.metamodel;bu
  ndle-version="9.0.0",com.mia.studio.empty.metamodel;bundle-version="9
  .0.0",com.mia.studio.empty.metamodel;bundle-version="9.0.0",com.mia.s
- tudio.empty.metamodel;bundle-version=9.0.0
+ tudio.empty.metamodel;bundle-version=9.0.0,com.mia.studio.empty.metam
+ odel;bundle-version=9.0.0
 Bundle-ManifestVersion: 2
 Bundle-Activator: missinginaction.Activator
 Bundle-RequiredExecutionEnvironment: J2SE-1.5

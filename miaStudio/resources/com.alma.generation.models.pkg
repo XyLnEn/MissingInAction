@@ -10,7 +10,7 @@
 	</SCENARIO>
 	<SCRIPT NAME="IModel" META_OBJECT="Model" CATEGORY="default" FILE_ENCODING="UTF-8" VISIBILITY="private">
 		<TEXT><![CDATA[
-package com.alma.generation.models.interface;
+package com.alma.banque.model;
 
 import java.util.List;
 
@@ -23,16 +23,16 @@ public interface [[current.makeInterfaceName]] {
 	</SCRIPT>
 	<SCRIPT NAME="IModel$Filename" META_OBJECT="Model" CATEGORY="default">
 		<TEXT><![CDATA[
-com/alma/generation/models/interface/[[current.makeInterfaceName]].java
+com/alma/banque/model/[[current.makeInterfaceName]].java
 ]]></TEXT>
 	</SCRIPT>
 	<SCRIPT NAME="ImplModel" META_OBJECT="Model" CATEGORY="default" FILE_ENCODING="UTF-8" VISIBILITY="private">
 		<TEXT><![CDATA[
-package com.alma.generation.models.impl;
+package com.alma.banque.model.impl;
 
 import java.util.List;
 import java.util.ArrayList;
-import com.alma.generation.models.interface.[[current.makeInterfaceName]];
+import com.alma.banque.model.[[current.makeInterfaceName]];
 [[current.ownedElements.ownedElementsImport]]
 
 public class [[current.name]] implements [[current.makeInterfaceName]] {
@@ -47,7 +47,7 @@ public class [[current.name]] implements [[current.makeInterfaceName]] {
 	</SCRIPT>
 	<SCRIPT NAME="ImplModel$Filename" META_OBJECT="Model" CATEGORY="default">
 		<TEXT><![CDATA[
-com/alma/generation/models/impl/[[current.name]].java
+com/alma/banque/model/impl/[[current.name]].java
 ]]></TEXT>
 	</SCRIPT>
 	<TEXT_MACRO NAME="makeInterfaceName" META_OBJECT="Model" CATEGORY="default" RETURN_TYPE_KIND="primitive" RETURN_TYPE_NAME="String">
@@ -77,9 +77,9 @@ return "set" + current.getName() + "s";
 	</SCRIPT>
 	<SCRIPT NAME="ownedElementsGetSet" META_OBJECT="Model" CATEGORY="default">
 		<TEXT><![CDATA[
-	public List<[[current.makeInterfaceName@¤] [[current.makeOwnedEltGetter]] ;
+	public List<[[current.makeInterfaceName@¤] [[current.makeOwnedEltGetter]]();
 	
-	public void [[current.makeOwnedEltSetter]]<[[current.makeInterfaceName@¤] newValue);
+	public void [[current.makeOwnedEltSetter]](List<[[current.makeInterfaceName@¤] newValue);
 ]]></TEXT>
 	</SCRIPT>
 	<SCRIPT NAME="ownedElementsGetSetImpl" META_OBJECT="Model" CATEGORY="default">
@@ -91,7 +91,7 @@ return "set" + current.getName() + "s";
 		return this.[[current.makeListName]];
 	}
 	
-	public void [[current.makeOwnedEltSetter]](<[[current.makeInterfaceName@¤] newValue) {
+	public void [[current.makeOwnedEltSetter]](List<[[current.makeInterfaceName@¤] newValue) {
 		this.[[current.makeListName]] = newValue;
 	}
 
@@ -99,7 +99,7 @@ return "set" + current.getName() + "s";
 	</SCRIPT>
 	<SCRIPT NAME="ownedElementsImport" META_OBJECT="Model" CATEGORY="default">
 		<TEXT><![CDATA[
-import com.alma.generation.models.interface.[[current.makeInterfaceName]];
+import com.alma.banque.model.[[current.makeInterfaceName]];
 
 ]]></TEXT>
 	</SCRIPT>
