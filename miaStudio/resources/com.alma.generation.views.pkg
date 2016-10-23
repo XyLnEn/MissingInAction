@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE PACKAGE SYSTEM "package.dtd">
+<PACKAGE NAME="com.alma.generation.views" METAMODEL="MVC" NUMBER="3"
+>
+	<fileHeader version="6" toolName="Mia-Generation" toolVersion="9.2.1"/>
+	<SCENARIO NAME="makeViews" VISIBILITY="public" META_OBJECT="View" CATEGORY="default">
+		<SERVICE_CALL NAME="current" PACKAGE="System" META_OBJECT="View"/>
+		<GENERATION_STEP TYPE="FileTemplate" PACKAGE="com.alma.generation.views" META_OBJECT="View" CATEGORY="default" NAME="IView" PARAM_COUNT="0"/>
+	</SCENARIO>
+	<SCRIPT NAME="IView" META_OBJECT="View" CATEGORY="default" FILE_ENCODING="UTF-8" VISIBILITY="private">
+		<TEXT><![CDATA[
+package com.alma.banque.ui.view;
+
+public interface [[current.makeInterfaceName]] {
+	
+[[current.actions.makeFunction]]
+}
+]]></TEXT>
+		<PROPERTY NAME="Filename"/>
+	</SCRIPT>
+	<SCRIPT NAME="IView$Filename" META_OBJECT="View" CATEGORY="default">
+		<TEXT><![CDATA[
+com/alma/banque/ui/view/[[current.makeInterfaceName]].java
+]]></TEXT>
+	</SCRIPT>
+	<TEXT_MACRO NAME="makeInterfaceName" META_OBJECT="View" CATEGORY="default" RETURN_TYPE_KIND="primitive" RETURN_TYPE_NAME="String">
+		<TEXT><![CDATA[
+return "I" + current.getName();
+]]></TEXT>
+	</TEXT_MACRO>
+	<METAMODELS_INFO_CACHE>
+		<METAMODEL_IMPORT CLAUSE="com.mia.formation.mvc.*" RELATED_METAS="Action,Model,ModelProperty,UIApplication,View,NamedElement"/>
+		<METAMODEL_CONTAINER_QNAME CQNAME="mvc" RELATED_METAS="Action,Model,ModelProperty,UIApplication,View,NamedElement"/>
+	</METAMODELS_INFO_CACHE>
+</PACKAGE>

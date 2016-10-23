@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE PACKAGE SYSTEM "package.dtd">
-<PACKAGE NAME="com.alma.generation" METAMODEL="MVC" NUMBER="0"
+<PACKAGE NAME="com.alma.generation.actions" METAMODEL="MVC" NUMBER="1"
 >
 	<fileHeader version="6" toolName="Mia-Generation" toolVersion="9.2.1"/>
+	<SCRIPT NAME="makeFunction" META_OBJECT="Action" CATEGORY="default">
+		<TEXT><![CDATA[
+	public void [[current.name]]();
+
+]]></TEXT>
+	</SCRIPT>
 	<METAMODELS_INFO_CACHE>
 		<METAMODEL_IMPORT CLAUSE="com.mia.formation.mvc.*" RELATED_METAS="Action,Model,ModelProperty,UIApplication,View,NamedElement"/>
 		<METAMODEL_CONTAINER_QNAME CQNAME="mvc" RELATED_METAS="Action,Model,ModelProperty,UIApplication,View,NamedElement"/>
