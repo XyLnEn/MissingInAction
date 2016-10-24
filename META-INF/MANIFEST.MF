@@ -7,6 +7,7 @@ Bundle-ClassPath: .,
  bin
 Bundle-Activator: missinginaction.Activator
 Export-Package: com.alma.generation.actions.h1322484745,
+ com.alma.generation.h1171047674,
  com.alma.generation.modelproperty.h1142055434,
  com.alma.generation.models.hn157377058,
  com.alma.generation.views.h3057786

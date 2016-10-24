@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE PACKAGE SYSTEM "package.dtd">
-<PACKAGE NAME="com.alma.generation" METAMODEL="MVC" NUMBER="0"
+<PACKAGE NAME="com.alma.generation" METAMODEL="MVC" NUMBER="2"
 >
 	<fileHeader version="6" toolName="Mia-Generation" toolVersion="9.2.1"/>
+	<SCENARIO NAME="makeCode" VISIBILITY="public" META_OBJECT="UIApplication" CATEGORY="default">
+		<SERVICE_CALL NAME="current" PACKAGE="System" META_OBJECT="UIApplication"/>
+	</SCENARIO>
+	<SCRIPT NAME="Application" META_OBJECT="UIApplication" CATEGORY="default" FILE_ENCODING="UTF-8" VISIBILITY="private">
+		<TEXT><![CDATA[
+generated text
+]]></TEXT>
+		<PROPERTY NAME="Filename"/>
+	</SCRIPT>
+	<SCRIPT NAME="Application$Filename" META_OBJECT="UIApplication" CATEGORY="default">
+		<TEXT><![CDATA[
+result.txt
+]]></TEXT>
+	</SCRIPT>
 	<METAMODELS_INFO_CACHE>
 		<METAMODEL_IMPORT CLAUSE="com.mia.formation.mvc.*" RELATED_METAS="Action,Model,ModelProperty,UIApplication,View,NamedElement"/>
 		<METAMODEL_CONTAINER_QNAME CQNAME="mvc" RELATED_METAS="Action,Model,ModelProperty,UIApplication,View,NamedElement"/>

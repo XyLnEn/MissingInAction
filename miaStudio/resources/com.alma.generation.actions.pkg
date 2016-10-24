@@ -1,11 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE PACKAGE SYSTEM "package.dtd">
-<PACKAGE NAME="com.alma.generation.actions" METAMODEL="MVC" NUMBER="1"
+<PACKAGE NAME="com.alma.generation.actions" METAMODEL="MVC" NUMBER="8"
 >
 	<fileHeader version="6" toolName="Mia-Generation" toolVersion="9.2.1"/>
+	<SCRIPT NAME="makeActionButton" META_OBJECT="Action" CATEGORY="default">
+		<TEXT><![CDATA[
+	private Button [[current.makeButtonName]];
+
+]]></TEXT>
+	</SCRIPT>
+	<SCRIPT NAME="makeActionButtonImpl" META_OBJECT="Action" CATEGORY="default">
+		<TEXT><![CDATA[
+	public void [[current.name]]() {
+		[[BeginTag]]
+		[[EndTag]]
+	}
+
+]]></TEXT>
+		<PROPERTY NAME="BeginTag"/>
+		<PROPERTY NAME="EndTag"/>
+	</SCRIPT>
+	<SCRIPT NAME="makeActionButtonImpl$BeginTag" META_OBJECT="Action" CATEGORY="default">
+		<TEXT><![CDATA[
+// Start of user code for [[current.name]]
+]]></TEXT>
+	</SCRIPT>
+	<SCRIPT NAME="makeActionButtonImpl$EndTag" META_OBJECT="Action" CATEGORY="default">
+		<TEXT><![CDATA[
+// End of user code for [[current.name]]
+]]></TEXT>
+	</SCRIPT>
+	<TEXT_MACRO NAME="makeButtonName" META_OBJECT="Action" CATEGORY="default" RETURN_TYPE_KIND="primitive" RETURN_TYPE_NAME="String">
+		<TEXT><![CDATA[
+String name = current.getName().substring(0, 1).toUpperCase() + current.getName().substring(1);
+return "btn" + name;
+]]></TEXT>
+	</TEXT_MACRO>
 	<SCRIPT NAME="makeFunction" META_OBJECT="Action" CATEGORY="default">
 		<TEXT><![CDATA[
 	public void [[current.name]]();
+
+]]></TEXT>
+	</SCRIPT>
+	<SCRIPT NAME="makeFunctionImpl" META_OBJECT="Action" CATEGORY="default">
+		<TEXT><![CDATA[
+	public void [[current.name]]() {
+		this.controller.[[current.name]]();
+	}
+
+]]></TEXT>
+	</SCRIPT>
+	<SCRIPT NAME="makeGroupButton" META_OBJECT="Action" CATEGORY="default">
+		<TEXT><![CDATA[
+
+		[[current.makeButtonName]] = new Button(grpButtons, SWT.NONE);
+		[[current.makeButtonName]].setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, true, 1, 1));
+		[[current.makeButtonName]].setText("[[current.name]]");
+		[[current.makeButtonName]].addSelectionListener(new SelectionAdapter(){
+			public void widgetSelected(SelectionEvent event) {
+				[[current.name]]();
+			}
+		});
 
 ]]></TEXT>
 	</SCRIPT>

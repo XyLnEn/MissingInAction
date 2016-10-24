@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE PACKAGE SYSTEM "package.dtd">
-<PACKAGE NAME="com.alma.generation.models" METAMODEL="MVC" NUMBER="12"
+<PACKAGE NAME="com.alma.generation.models" METAMODEL="MVC" NUMBER="15"
 >
 	<fileHeader version="6" toolName="Mia-Generation" toolVersion="9.2.1"/>
 	<SCENARIO NAME="MakeModelsCode" VISIBILITY="public" META_OBJECT="Model" CATEGORY="default">
@@ -50,6 +50,11 @@ public class [[current.name]] implements [[current.makeInterfaceName]] {
 com/alma/banque/model/impl/[[current.name]].java
 ]]></TEXT>
 	</SCRIPT>
+	<TEXT_MACRO NAME="makeGroupSWT" META_OBJECT="Model" CATEGORY="default" RETURN_TYPE_KIND="primitive" RETURN_TYPE_NAME="String">
+		<TEXT><![CDATA[
+return "grp" + current.getName();
+]]></TEXT>
+	</TEXT_MACRO>
 	<TEXT_MACRO NAME="makeInterfaceName" META_OBJECT="Model" CATEGORY="default" RETURN_TYPE_KIND="primitive" RETURN_TYPE_NAME="String">
 		<TEXT><![CDATA[
 return "I" + current.getName();
@@ -70,6 +75,12 @@ return "get" + current.getName() + "s";
 return "set" + current.getName() + "s";
 ]]></TEXT>
 	</TEXT_MACRO>
+	<SCRIPT NAME="ownedElementList" META_OBJECT="Model" CATEGORY="default">
+		<TEXT><![CDATA[
+public List [[current.makeListName]];
+
+]]></TEXT>
+	</SCRIPT>
 	<SCRIPT NAME="ownedElementsAttribute" META_OBJECT="Model" CATEGORY="default">
 		<TEXT><![CDATA[
 	private List<[[current.makeInterfaceName@¤] [[current.makeListName]];
@@ -100,6 +111,23 @@ return "set" + current.getName() + "s";
 	<SCRIPT NAME="ownedElementsImport" META_OBJECT="Model" CATEGORY="default">
 		<TEXT><![CDATA[
 import com.alma.banque.model.[[current.makeInterfaceName]];
+
+]]></TEXT>
+	</SCRIPT>
+	<SCRIPT NAME="ownedElementsSWTList" META_OBJECT="Model" CATEGORY="default">
+		<TEXT><![CDATA[
+		// Liste de [[current.name]]
+		Group [[current.makeGroupSWT]] = new Group(this, SWT.NONE);
+		[[current.makeGroupSWT]].setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
+		[[current.makeGroupSWT]].setText("Liste des [[current.name]]");
+		[[current.makeGroupSWT]].setLayout(new GridLayout());
+
+		this.[[current.makeListName]] = new List([[current.makeGroupSWT]], SWT.BORDER | SWT.V_SCROLL | SWT.SINGLE);
+		this.[[current.makeListName]].setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		
+		for ([[current.makeInterfaceName]] elt : this.model.[[current.makeOwnedEltGetter]]()) {
+			this.[[current.makeListName]].add(elt.toString());
+		}
 
 ]]></TEXT>
 	</SCRIPT>
