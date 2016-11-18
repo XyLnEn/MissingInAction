@@ -1,22 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE PACKAGE SYSTEM "package.dtd">
-<PACKAGE NAME="com.alma.generation" METAMODEL="MVC" NUMBER="2"
+<PACKAGE NAME="com.alma.generation" METAMODEL="MVC" NUMBER="0"
 >
 	<fileHeader version="6" toolName="Mia-Generation" toolVersion="9.2.1"/>
-	<SCENARIO NAME="makeCode" VISIBILITY="public" META_OBJECT="UIApplication" CATEGORY="default">
-		<SERVICE_CALL NAME="current" PACKAGE="System" META_OBJECT="UIApplication"/>
+	<SCENARIO NAME="generateApplication" VISIBILITY="public" META_OBJECT="UIApplication" CATEGORY="default">
+		<SERVICE_CALL NAME="pages" PACKAGE="System" META_OBJECT="UIApplication"/>
+		<GENERATION_STEP TYPE="Scenario" PACKAGE="com.alma.generation" META_OBJECT="View" NAME="MakeModels"/>
+		<GENERATION_STEP TYPE="Scenario" PACKAGE="com.alma.generation.views" META_OBJECT="View" NAME="MakeViewsControllers"/>
 	</SCENARIO>
-	<SCRIPT NAME="Application" META_OBJECT="UIApplication" CATEGORY="default" FILE_ENCODING="UTF-8" VISIBILITY="private">
-		<TEXT><![CDATA[
-generated text
-]]></TEXT>
-		<PROPERTY NAME="Filename"/>
-	</SCRIPT>
-	<SCRIPT NAME="Application$Filename" META_OBJECT="UIApplication" CATEGORY="default">
-		<TEXT><![CDATA[
-result.txt
-]]></TEXT>
-	</SCRIPT>
+	<SCENARIO NAME="MakeModels" VISIBILITY="public" META_OBJECT="View" CATEGORY="default">
+		<SERVICE_CALL NAME="model" PACKAGE="System" META_OBJECT="View"/>
+		<GENERATION_STEP TYPE="Scenario" PACKAGE="com.alma.generation.models" META_OBJECT="Model" NAME="MakeModelsCode"/>
+	</SCENARIO>
 	<METAMODELS_INFO_CACHE>
 		<METAMODEL_IMPORT CLAUSE="com.mia.formation.mvc.*" RELATED_METAS="Action,Model,ModelProperty,UIApplication,View,NamedElement"/>
 		<METAMODEL_CONTAINER_QNAME CQNAME="mvc" RELATED_METAS="Action,Model,ModelProperty,UIApplication,View,NamedElement"/>

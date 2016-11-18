@@ -1,31 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE PACKAGE SYSTEM "package.dtd">
-<PACKAGE NAME="com.alma.generation.views" METAMODEL="MVC" NUMBER="11"
+<PACKAGE NAME="com.alma.generation.views" METAMODEL="MVC" NUMBER="17"
 >
 	<fileHeader version="6" toolName="Mia-Generation" toolVersion="9.2.1"/>
-	<SCENARIO NAME="makeViews" VISIBILITY="public" META_OBJECT="View" CATEGORY="default">
+	<SCENARIO NAME="MakeControllers" VISIBILITY="public" META_OBJECT="View" CATEGORY="default">
+		<SERVICE_CALL NAME="current" PACKAGE="System" META_OBJECT="View"/>
+		<GENERATION_STEP TYPE="FileTemplate" PACKAGE="com.alma.generation.views" META_OBJECT="View" CATEGORY="default" NAME="IController" PARAM_COUNT="0"/>
+		<GENERATION_STEP TYPE="FileTemplate" PACKAGE="com.alma.generation.views" META_OBJECT="View" CATEGORY="default" NAME="Controller" PARAM_COUNT="0"/>
+	</SCENARIO>
+	<SCENARIO NAME="MakeViews" VISIBILITY="public" META_OBJECT="View" CATEGORY="default">
 		<SERVICE_CALL NAME="current" PACKAGE="System" META_OBJECT="View"/>
 		<GENERATION_STEP TYPE="FileTemplate" PACKAGE="com.alma.generation.views" META_OBJECT="View" CATEGORY="default" NAME="IView" PARAM_COUNT="0"/>
 		<GENERATION_STEP TYPE="FileTemplate" PACKAGE="com.alma.generation.views" META_OBJECT="View" CATEGORY="default" NAME="View" PARAM_COUNT="0"/>
-		<GENERATION_STEP TYPE="FileTemplate" PACKAGE="com.alma.generation.views" META_OBJECT="View" CATEGORY="default" NAME="IController" PARAM_COUNT="0"/>
-		<GENERATION_STEP TYPE="FileTemplate" PACKAGE="com.alma.generation.views" META_OBJECT="View" CATEGORY="default" NAME="Controller" PARAM_COUNT="0"/>
+	</SCENARIO>
+	<SCENARIO NAME="MakeViewsControllers" VISIBILITY="public" META_OBJECT="View" CATEGORY="default">
+		<SERVICE_CALL NAME="current" PACKAGE="System" META_OBJECT="View"/>
+		<GENERATION_STEP TYPE="Scenario" PACKAGE="com.alma.generation.views" META_OBJECT="View" NAME="MakeViews"/>
+		<GENERATION_STEP TYPE="Scenario" PACKAGE="com.alma.generation.views" META_OBJECT="View" NAME="MakeControllers"/>
 	</SCENARIO>
 	<SCRIPT NAME="Controller" META_OBJECT="View" CATEGORY="default" FILE_ENCODING="UTF-8" VISIBILITY="private">
 		<TEXT><![CDATA[
 package com.alma.banque.ui.controller.swt;
 
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
-import org.eclipse.swt.widgets.List;
-import org.eclipse.swt.widgets.Group;
+[[current.ImportsBaseSWT]]
 
 import com.alma.banque.ui.controller.[[current.makeIControllerName]];
 import com.alma.banque.ui.view.[[current.makeInterfaceName]];
@@ -37,11 +34,30 @@ public class [[current.makeControllerName]] implements [[current.makeIController
 	private [[current.name]] view;
 	private [[current.model.makeInterfaceName]] model;
 
+[[current.ControllerConstructor]]
+
+[[current.ControllerInitView]]
+
+[[current.actions.makeActionButtonImpl]]
+}
+]]></TEXT>
+		<PROPERTY NAME="Filename"/>
+	</SCRIPT>
+	<SCRIPT NAME="Controller$Filename" META_OBJECT="View" CATEGORY="default">
+		<TEXT><![CDATA[
+com/alma/banque/ui/controller/swt/[[current.makeControllerName]].java
+]]></TEXT>
+	</SCRIPT>
+	<SCRIPT NAME="ControllerConstructor" META_OBJECT="View" CATEGORY="default">
+		<TEXT><![CDATA[
 	public [[current.makeControllerName]]([[current.model.makeInterfaceName]] model) {
 		this.model = model;
 	}
 
-
+]]></TEXT>
+	</SCRIPT>
+	<SCRIPT NAME="ControllerInitView" META_OBJECT="View" CATEGORY="default">
+		<TEXT><![CDATA[
 	public void initView() {
 		Display display = Display.getDefault();
 		
@@ -56,14 +72,24 @@ public class [[current.makeControllerName]] implements [[current.makeIController
 		}
 	}
 
-[[current.actions.makeActionButtonImpl]]
-}
 ]]></TEXT>
-		<PROPERTY NAME="Filename"/>
 	</SCRIPT>
-	<SCRIPT NAME="Controller$Filename" META_OBJECT="View" CATEGORY="default">
+	<SCRIPT NAME="CreateContentMethod" META_OBJECT="View" CATEGORY="default">
 		<TEXT><![CDATA[
-com/alma/banque/ui/controller/swt/[[current.makeControllerName]].java
+	private void createContents(){
+		setText("[[current.name]]");
+		setSize(458, 308);
+		setLayout(new GridLayout(2, false));
+
+[[current.model.ownedElements.ownedElementsSWTList]]
+
+		Group grpButtons = new Group(this, SWT.NONE);
+		grpButtons.setLayout(new GridLayout(2, false));
+		grpButtons.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
+		
+[[current.actions.makeGroupButton]]
+	}
+
 ]]></TEXT>
 	</SCRIPT>
 	<SCRIPT NAME="IController" META_OBJECT="View" CATEGORY="default" FILE_ENCODING="UTF-8" VISIBILITY="private">
@@ -99,10 +125,8 @@ public interface [[current.makeInterfaceName]] {
 com/alma/banque/ui/view/[[current.makeInterfaceName]].java
 ]]></TEXT>
 	</SCRIPT>
-	<SCRIPT NAME="View" META_OBJECT="View" CATEGORY="default" FILE_ENCODING="UTF-8" VISIBILITY="private">
+	<SCRIPT NAME="ImportsBaseSWT" META_OBJECT="View" CATEGORY="default">
 		<TEXT><![CDATA[
-package com.alma.banque.ui.view.swt;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -115,6 +139,23 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.List;
 import org.eclipse.swt.widgets.Group;
+
+]]></TEXT>
+	</SCRIPT>
+	<SCRIPT NAME="OverrideCheckSubclass" META_OBJECT="View" CATEGORY="default">
+		<TEXT><![CDATA[
+	@Override
+	protected void checkSubclass() {
+		// Disable the check that prevents subclassing of SWT components
+	}
+
+]]></TEXT>
+	</SCRIPT>
+	<SCRIPT NAME="View" META_OBJECT="View" CATEGORY="default" FILE_ENCODING="UTF-8" VISIBILITY="private">
+		<TEXT><![CDATA[
+package com.alma.banque.ui.view.swt;
+
+[[current.ImportsBaseSWT]]
 
 import com.alma.banque.ui.controller.[[current.makeIControllerName]];
 import com.alma.banque.ui.view.[[current.makeInterfaceName]];
@@ -129,6 +170,24 @@ public class [[current.name]] extends Shell implements [[current.makeInterfaceNa
 [[current.actions.makeActionButton]]
 [[current.model.ownedElements.ownedElementList]]
 
+[[current.ViewConstructor]]
+
+[[current.actions.makeFunctionImpl]]
+
+[[current.CreateContentMethod]]
+
+[[current.OverrideCheckSubclass]]
+}
+]]></TEXT>
+		<PROPERTY NAME="Filename"/>
+	</SCRIPT>
+	<SCRIPT NAME="View$Filename" META_OBJECT="View" CATEGORY="default">
+		<TEXT><![CDATA[
+com/alma/banque/ui/view/swt/[[current.name]].java
+]]></TEXT>
+	</SCRIPT>
+	<SCRIPT NAME="ViewConstructor" META_OBJECT="View" CATEGORY="default">
+		<TEXT><![CDATA[
 	/**
 	 * Create the shell.
 	 * @param display
@@ -141,35 +200,6 @@ public class [[current.name]] extends Shell implements [[current.makeInterfaceNa
 		createContents();
 	}
 
-[[current.actions.makeFunctionImpl]]
-
-	private void createContents(){
-		setText("[[current.name]]");
-		setSize(458, 308);
-		setLayout(new GridLayout(2, false));
-
-[[current.model.ownedElements.ownedElementsSWTList]]
-
-		Group grpButtons = new Group(this, SWT.NONE);
-		grpButtons.setLayout(new GridLayout(2, false));
-		grpButtons.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true, 2, 1));
-		
-[[current.actions.makeGroupButton]]
-	}
-
-	@Override
-	protected void checkSubclass() {
-		// Disable the check that prevents subclassing of SWT components
-	}
-
-
-}
-]]></TEXT>
-		<PROPERTY NAME="Filename"/>
-	</SCRIPT>
-	<SCRIPT NAME="View$Filename" META_OBJECT="View" CATEGORY="default">
-		<TEXT><![CDATA[
-com/alma/banque/ui/view/swt/[[current.name]].java
 ]]></TEXT>
 	</SCRIPT>
 	<TEXT_MACRO NAME="makeControllerName" META_OBJECT="View" CATEGORY="default" RETURN_TYPE_KIND="primitive" RETURN_TYPE_NAME="String">
