@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE PACKAGE SYSTEM "package.dtd">
-<PACKAGE NAME="com.alma.generation.modelproperty" METAMODEL="MVC" NUMBER="5"
+<PACKAGE NAME="com.alma.generation.modelproperty" METAMODEL="MVC" NUMBER="8"
 >
 	<fileHeader version="6" toolName="Mia-Generation" toolVersion="9.2.1"/>
 	<SCRIPT NAME="makeAttribute" META_OBJECT="ModelProperty" CATEGORY="default">
@@ -9,6 +9,11 @@
 
 ]]></TEXT>
 	</SCRIPT>
+	<TEXT_MACRO NAME="makeFieldName" META_OBJECT="ModelProperty" CATEGORY="default" RETURN_TYPE_KIND="primitive" RETURN_TYPE_NAME="String">
+		<TEXT><![CDATA[
+return "field" + current.getName();
+]]></TEXT>
+	</TEXT_MACRO>
 	<SCRIPT NAME="makeGetterSetter" META_OBJECT="ModelProperty" CATEGORY="default">
 		<TEXT><![CDATA[
 
@@ -29,6 +34,11 @@
 	}
 ]]></TEXT>
 	</SCRIPT>
+	<TEXT_MACRO NAME="makeLabelName" META_OBJECT="ModelProperty" CATEGORY="default" RETURN_TYPE_KIND="primitive" RETURN_TYPE_NAME="String">
+		<TEXT><![CDATA[
+return "label" + current.getName();
+]]></TEXT>
+	</TEXT_MACRO>
 	<TEXT_MACRO NAME="makePropertyGetter" META_OBJECT="ModelProperty" CATEGORY="default" RETURN_TYPE_KIND="primitive" RETURN_TYPE_NAME="String">
 		<TEXT><![CDATA[
 return "get" + current.getName();
@@ -39,6 +49,19 @@ return "get" + current.getName();
 return "set" + current.getName();
 ]]></TEXT>
 	</TEXT_MACRO>
+	<SCRIPT NAME="makeSWTLabel" META_OBJECT="ModelProperty" CATEGORY="default">
+		<TEXT><![CDATA[
+	Label [[current.makeLabelName]] = new Label(this, SWT.NONE);
+	[[current.makeLabelName]].setLayoutData(new GridData(SWT.RIGHT, SWT.CENTER, false, false,
+				1, 1));
+		[[current.makeLabelName]].setText("[[current.name]]");
+
+		Text [[current.makeFieldName]] = new Text(this, SWT.BORDER);
+		[[current.makeFieldName]].setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true,
+				false, 1, 1));
+		[[current.makeFieldName]].setText(this.model.[[current.makePropertyGetter]]());
+]]></TEXT>
+	</SCRIPT>
 	<METAMODELS_INFO_CACHE>
 		<METAMODEL_IMPORT CLAUSE="com.mia.formation.mvc.*" RELATED_METAS="Action,Model,ModelProperty,UIApplication,View,NamedElement"/>
 		<METAMODEL_CONTAINER_QNAME CQNAME="mvc" RELATED_METAS="Action,Model,ModelProperty,UIApplication,View,NamedElement"/>

@@ -81,6 +81,7 @@ com/alma/banque/ui/controller/swt/[[current.makeControllerName]].java
 		setSize(458, 308);
 		setLayout(new GridLayout(2, false));
 
+[[current.model.properties.makeSWTLabel]]
 [[current.model.ownedElements.ownedElementsSWTList]]
 
 		Group grpButtons = new Group(this, SWT.NONE);
